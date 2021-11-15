@@ -13,22 +13,21 @@
 # limitations under the License.
 ################################################################################
 
-#OS=`uname`
-#LOC=`locale charmap`
-#FULLLANG=${OS}_${LANG%.*}.${LOC}
+OS=`uname`
+LOC=`locale charmap`
+FULLLANG=${OS}_${LANG%.*}.${LOC}
 
 BASE=`dirname $0`
-#CP=${BASE}/pattern_matching_instanceof.jar
+CP=${BASE}/pattern_matching_instanceof.jar
 CP_junit=${BASE}/junit4.jar
 
-#. ${BASE}/check_env_unix.sh
+. ${BASE}/check_env_unix.sh
 
-javac GenerateTestSource.java
-java GenerateTestSource ${TEST_STRINGS} > PatternMatchingInstanceOfTest.java
+${JAVA_BIN}/java -cp ${CP} GenerateTestSource ${TEST_STRINGS} > PatternMatchingInstanceOfTest.java
 
-javac -cp ${CP_junit} PatternMatchingInstanceOfTest.java
+${JAVA_BIN}/javac -cp ${CP_junit} PatternMatchingInstanceOfTest.java
 
-java -cp ${CP_junit}:. junit.textui.TestRunner PatternMatchingInstanceOfTest
+${JAVA_BIN}/java -cp ${CP_junit}:. junit.textui.TestRunner PatternMatchingInstanceOfTest
 
 RESULT=$?
 exit ${RESULT}

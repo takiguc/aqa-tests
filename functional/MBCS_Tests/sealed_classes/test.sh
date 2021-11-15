@@ -17,22 +17,16 @@ OS=`uname`
 LOC=`locale charmap`
 FULLLANG=${OS}_${LANG%.*}.${LOC}
 
-#. ${BASE}/check_env_unix.sh
+. ${BASE}/check_env_unix.sh
 
-#CP=${BASE}/sealed_classes.jar
+CP=${BASE}/sealed_classes.jar
 CP_junit=${BASE}/junit4.jar
 
-rm -f *.class
-rm -f compile_sbcs_err.out compile_err.out expected_result.txt
+${JAVA_BIN}/java -cp ${CP} GenerateTestSource ${TEST_STRINGS}
 
-# For CI, the following command is unnecessary
-javac GenerateTestSource.java
-java GenerateTestSource ${TEST_STRINGS}
-
-javac FixFile.java
-javac -Xstdout compile_sbcs_err.out -cp ${CP_junit} SealedClassSbcsTest.java
-java FixFile compile_sbcs_err.out SealedClassSbcsTest SealedClassCETest ${TEST_STRINGS}
-javac -Xstdout compile_err.out -cp ${CP_junit} SealedClassCETest.java
+${JAVA_BIN}/javac -Xstdout compile_sbcs_err.out -cp ${CP_junit} SealedClassSbcsTest.java
+${JAVA_BIN}/java -cp ${CP} FixFile compile_sbcs_err.out SealedClassSbcsTest SealedClassCETest ${TEST_STRINGS}
+${JAVA_BIN}/javac -Xstdout compile_err.out -cp ${CP_junit} SealedClassCETest.java
 diff compile_err.out expected_result.txt
 
 RESULT=$?
@@ -40,8 +34,8 @@ if [ ${RESULT} != 0 ]; then
   exit ${RESULT} 
 fi
 
-javac -cp ${CP_junit} SealedClassTest.java
-java -cp ${CP_junit}:. junit.textui.TestRunner SealedClassTest
+${JAVA_BIN}/javac -cp ${CP_junit} SealedClassTest.java
+${JAVA_BIN}/java -cp ${CP_junit}:. junit.textui.TestRunner SealedClassTest
 
 RESULT=$?
 exit ${RESULT}

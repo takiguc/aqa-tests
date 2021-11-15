@@ -18,18 +18,14 @@ LOC=`locale charmap`
 FULLLANG=${OS}_${LANG%.*}.${LOC}
 
 BASE=`dirname $0`
+CP=${BASE}/unix_domain_socket.jar
 
-test -f output && rm output
-test -f expected_result && rm expected_result
-
-javac UnixDomainSocketTest.java
-java Server ${TEST_STRING} & 
+${JAVA_BIN}/java -cp ${CP} Server ${TEST_STRING} & 
 sleep 3
 
-java Client ${TEST_STRING} "${TEST_STRINGS}"
+${JAVA_BIN}/java -cp ${CP} Client ${TEST_STRING} "${TEST_STRINGS}"
 sleep 3
 
-test ! -s output && exit 1
 diff output expected_result
 RESULT=$?
 exit ${RESULT}
