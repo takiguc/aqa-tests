@@ -26,9 +26,7 @@ SET CP_junit=%PWD%\junit4.jar
 %JAVA_BIN%\javac -Xstdout compile_err.out -cp %CP_junit% SealedClassCETest.java
 
 fc compile_err.out expected_result.txt > fc.out 2>&1
-if not %errorlevel% = 0 (
-  exit %errorlevel%
-)
+if not errorlevel 0 exit %errorlevel%
 
 %JAVA_BIN%\javac -cp %CP_junit% SealedClassTest.java
 %JAVA_BIN%\java -cp %CP_junit%:. junit.textui.TestRunner SealedClassTest
