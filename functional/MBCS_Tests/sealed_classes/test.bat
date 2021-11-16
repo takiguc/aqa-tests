@@ -29,6 +29,6 @@ fc compile_err.out expected_result.txt > fc.out 2>&1
 if not errorlevel 0 exit %errorlevel%
 
 %JAVA_BIN%\javac -cp %CP_junit% SealedClassTest.java
-%JAVA_BIN%\java -cp %CP_junit%:. junit.textui.TestRunner SealedClassTest
+%JAVA_BIN%\java -cp %CP_junit%; junit.textui.TestRunner SealedClassTest
 
 exit %errorlevel%
