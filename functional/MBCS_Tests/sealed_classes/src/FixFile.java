@@ -20,7 +20,7 @@ public class FixFile {
   public static void main(String[] args) throws Exception {
     if (args.length < 4) System.exit(1);
     String s = new String(Files.readAllBytes(Paths.get(args[0])), Charset.defaultCharset());
-    String[] arrayString = GenerateTestSource.generateArrayString(Arrays.copyOfRange(args, 3, args.length), "ChildClass", args.length - 3);
+    String[] arrayString = GenerateTestSource.generateArrayString(Arrays.copyOfRange(args, 3, args.length), "ChildClass", 5);
     Files.write(Paths.get("expected_result.txt"),
       s.replaceAll(args[1], args[2])
        .replaceAll("STRING0", arrayString[0])

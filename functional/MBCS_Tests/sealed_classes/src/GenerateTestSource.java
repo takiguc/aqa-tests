@@ -42,7 +42,7 @@ public class GenerateTestSource {
 
   public static void main (String[] args) throws Exception {
     if (args.length < 1) System.exit(1);
-    String[] arrayString = generateArrayString(args, "ChildClass", args.length);
+    String[] arrayString = generateArrayString(args, "ChildClass", 5);
 
     var sealedClassTestSource =
       """

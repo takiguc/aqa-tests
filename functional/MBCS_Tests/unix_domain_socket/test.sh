@@ -20,6 +20,8 @@ FULLLANG=${OS}_${LANG%.*}.${LOC}
 BASE=`dirname $0`
 CP=${BASE}/unix_domain_socket.jar
 
+. ${BASE}/check_env_unix.sh
+
 ${JAVA_BIN}/java -cp ${CP} Server ${TEST_STRING} & 
 sleep 3
 
