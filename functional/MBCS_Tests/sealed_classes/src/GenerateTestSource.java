@@ -32,7 +32,11 @@ public class GenerateTestSource {
           if (Character.isJavaIdentifierPart(ch)) valid.append(ch);
         }
       }
-      arrayString[j] = valid.toString();
+      if (valid.toString() == "") {
+        arrayString[j] = prefix + j;
+      } else {
+        arrayString[j] = valid.toString();
+      }
     }
     for (int i = size - 1; i > args.length - 1; i--) {
       arrayString[i] = prefix + i;
