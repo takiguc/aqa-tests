@@ -240,8 +240,8 @@ getBinaryOpenjdk()
 			info_url+=" https://api.adoptium.net/v3/binary/latest/${JDK_VERSION}/${release_type}/${os}/${arch}/testimage/${JDK_IMPL}/${heap_size}/adoptium?project=jdk"
 		fi
 		if [ "$JDK_IMPL" == "openj9" ]; then
-			download_url="https://api.adoptopenjdk.net/v3/binary/latest/${JDK_VERSION}/${release_type}/${os}/${arch}/jdk/openj9/${heap_size}/adoptopenjdk https://api.adoptopenjdk.net/v3/binary/latest/${JDK_VERSION}/${release_type}/${os}/${arch}/testimage/openj9/${heap_size}/adoptopenjdk"
-			info_url="https://api.adoptopenjdk.net/v3/assets/feature_releases/${JDK_VERSION}/${release_type}?architecture=${arch}&heap_size=${heap_size}&image_type=jdk&jvm_impl=openj9&os=${os}&project=jdk&vendor=adoptopenjdk https://api.adoptopenjdk.net/v3/assets/feature_releases/${JDK_VERSION}/${release_type}?architecture=${arch}&heap_size=${heap_size}&image_type=testimage&jvm_impl=openj9&os=${os}&project=jdk&vendor=adoptopenjdk"
+			download_url="https://192.168.20.112:9443/v3/binary/latest/${JDK_VERSION}/${release_type}/${os}/${arch}/jdk/openj9/${heap_size}/adoptopenjdk https://192.168.20.112:9443/v3/binary/latest/${JDK_VERSION}/${release_type}/${os}/${arch}/testimage/openj9/${heap_size}/adoptopenjdk"
+			info_url="https://192.168.20.112:9443/v3/assets/feature_releases/${JDK_VERSION}/${release_type}?architecture=${arch}&heap_size=${heap_size}&image_type=jdk&jvm_impl=openj9&os=${os}&project=jdk&vendor=adoptopenjdk https://192.168.20.112:9443/v3/assets/feature_releases/${JDK_VERSION}/${release_type}?architecture=${arch}&heap_size=${heap_size}&image_type=testimage&jvm_impl=openj9&os=${os}&project=jdk&vendor=adoptopenjdk"
 		fi
 	else
 		download_url=""
@@ -298,7 +298,7 @@ getBinaryOpenjdk()
 	if [ -n "$info_url" ]; then
 		for info in $info_url
 		do
-			if [[ $info == https://api.adoptopenjdk.net* ]]; then
+			if [[ $info == https://192.168.20.112:9443* ]]; then
 				http_resp_info=$(curl -Is "$info" | grep "HTTP/" | tail -1)
 				# 2nd field of HTTP status line is the http response code (both HTTP/1.1 & 2)
 				validate=$(echo "${http_resp_info}" | tr -s ' ' | cut -d' ' -f2)
